@@ -1,0 +1,65 @@
+{
+    "domain": "http://localhost:3000",
+    "port": 3000,
+    "licenseKey": "cfxk_njr7zTEJzdYezkX92NGx_1YEOvL",
+    "tebexSecret": "0ea5e6094968cc7542e5194fff7af55f3837df52",
+    "debugMode": true,
+    "ownerIds": [
+        "564243067360509956",
+        "704094587836301392",
+        "YOUR_USER_ID"
+    ],
+    "sql": {
+        "host": "localhost",
+        "user": "root",
+        "password": "",
+        "database": "huracanstore",
+        "port": 3306,
+        "charset": "utf8mb4"
+    },
+    "loginMethods": {
+        "regular": {
+            "enabled": true
+        },
+        "discord": {
+            "enabled": false,
+            "oauthId": "YOUR_CLIENT_ID",
+            "oauthToken": "YOUR_CLIENT_SECRET",
+            "botToken": "YOUR_BOT_TOKEN"
+        }
+    },
+    "paymentSettings": {
+        "useStripe": false,
+        "stripePublicKey": "STRIPE_PUBLIC_KEY",
+        "stripeSecretKey": "STRIPE_SECRET_KEY",
+        "usePaypal": false,
+        "paypalClientId": "YOUR_PAYPAL_CLIENT_ID",
+        "paypalClientSecret": "YOUR_PAYPAL_CLIENT_SECRET",
+        "currency": "usd",
+        "currencySymbol": "$"
+    },
+    "timeZone": {
+        "tz": "EST",
+        "format": "MM-DD-YYYY hh:mm A"
+    },
+    "redirects": [
+        {
+            "name": "discord",
+            "link": "https://discord.gg/huracan"
+        }
+    ],
+    "importHyperzBans": false,
+    "emails": {
+        "enabled": false,
+        "transporter": {
+            "service": "gmail",
+            "auth": {
+                "user": "example@gmail.com",
+                "pass": "1234"
+            }
+        },
+        "options": {
+            "html": "<div style='padding: 1em; word-break: break-word; word-wrap: break-word;'><img src='REPLACE_DOMAIN/assets/logo.png' width='125px' height='125px' style='text-align: center; margin-left: auto; margin-right: auto;'><h2 stype='padding-bottom: 8px; width: 70%; margin-left: auto; margin-right: auto; border-bottom: solid 2px black'>REPLACE_SITENAME</h2><hr><p style='text-align: start; font-weight: 600; padding-bottom: 10px; font-size: 1.1em;'>REPLACE_SUBJECT</p> <p style='text-align: start; padding-bottom: 1em;'>REPLACE_CONTENT</p><hr><a href='REPLACE_DOMAIN/account' style='padding: 1em;' target='_blank'>Change Communication Preferences</a></div>"
+        }
+    }
+}
