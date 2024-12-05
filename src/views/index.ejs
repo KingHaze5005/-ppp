@@ -1,0 +1,268 @@
+<%
+    let reviewCount = 0;
+    currentImg = 0;
+    currentImg2 = "active";
+%>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Home - <%= sitesettings.sitename %></title>
+        <meta property="og:title" content="Home - <%= sitesettings.sitename %>" />
+        <link rel="icon" href="/assets/logo.png">
+        <meta property="og:image" content="/assets/logo.png">
+        <meta name="theme-color" content="<%= sitesettings.sitecolor %>">
+        <meta name="description" content="<%= sitesettings.sitedesc %>" />
+        <meta property="og:type" content="website" />
+        <meta property="og:description" content="<%= sitesettings.sitedesc %>" />
+        <style>
+            .headertocontent, .headerbreak {
+                margin-bottom: 0em !important;
+            }
+        </style>
+    </head>
+    <body>
+        <%- include('_header') %>
+        <div class="headerimagehome">
+            <!-- MIDDLE CONTENT START -->
+            <div class="homepagemiddle">
+                <div class="row justify-content-center desktop">
+                    <div class="col-lg-6 mb-3 text-start">
+                        <% if(sitestyles.currentprodsbtn) { %>
+                            <a href="/shop" class="btn btn-outline-secondary viewourchangesbutton">View our current products</a>
+                        <% }; %>
+                        <p class="midtitle"><%= sitesettings.sitename %></p>
+                        <p class="midpg"><%- sitesettings.homeabout %></p>
+                        <% if(sitestyles.ourdiscordbtn) { %>
+                            <a href="/discord" class="btn w-75 btn-lg btn-theme homebutton">Our Discord</a>
+                        <% }; %>
+                        <% if(sitestyles.recentpurchases && typeof recentPurchase != 'boolean') { %>
+                            <div class="bg-thatdark bd-theme p-3 mt-5" style="border-radius: 1em;">
+                                <h5 class="mb-3 bigfont">Recent Purchase</h5>
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-5 mb-3">
+                                        <img src="/images/product_<%= recentPurchase.ownedItem.productid %>.png" class="recentPurchaseImage">
+                                    </div>
+                                    <div class="col-lg-7 mb-3">
+                                        <h6 class="bigfont"><span class="text-theme">Name: </span><%= recentPurchase.ownedItem.productname %></h6>
+                                        <h6 class="bigfont"><span class="text-theme">Price: </span><%= recentPurchase.ownedItem.price %></h6>
+                                        <h6 class="bigfont"><span class="text-theme">Date: </span><%= recentPurchase.ownedItem.datebought %></h6>
+                                        <hr>
+                                        <div class="row justify-content-center">
+                                            <div class="col-lg-1 mb-3">
+                                                <img src="/images/avatar_<%= recentPurchase.userInfo.id %>.png" class="recentPurchaseUserLogo bd-theme">
+                                            </div>
+                                            <div class="col-lg-11 mb-3">
+                                                <h5 class="bigfont text-theme mt-2 text-start ps-4"><%= recentPurchase.userInfo.username %></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <% }; %>
+                    </div>
+                    <div class="col-lg-6 mb-3 text-end">
+                        <img src="/assets/logo.png" alt="website logo" class="midlogo">
+                    </div>
+                </div>
+                <div class="mobile text-center">
+                    <% if(sitestyles.currentprodsbtn) { %>
+                        <a href="/shop" class="btn btn-outline-secondary viewourchangesbutton">View our current products</a>
+                    <% }; %>
+                    <p class="midtitle"><%= sitesettings.sitename %></p>
+                    <p class="midpg"><%- sitesettings.homeabout %></p>
+                    <% if(sitestyles.ourdiscordbtn) { %>
+                        <a href="/discord" class="btn btn-lg w-75 btn-theme homebutton">Our Discord</a>
+                    <% }; %>
+                </div>
+                <div class="tablet text-center">
+                    <% if(sitestyles.currentprodsbtn) { %>
+                        <a href="/shop" class="btn btn-outline-secondary viewourchangesbutton">View our current products</a>
+                    <% }; %>
+                    <p class="midtitle"><%= sitesettings.sitename %></p>
+                    <p class="midpg"><%- sitesettings.homeabout %></p>
+                    <% if(sitestyles.ourdiscordbtn) { %>
+                        <a href="/discord" class="btn btn-lg w-75 btn-theme homebutton">Our Discord</a>
+                    <% }; %>
+                </div>
+            </div>
+            <!-- MIDDLE CONTENT END -->
+        </div>
+        <% if((sitestyles.statsproducts + sitestyles.statsclients + sitestyles.statspurchases + sitestyles.statsusers + sitestyles.statsreviews + sitestyles.statspartners + sitestyles.statsstaff) > 0) { %>
+            <div class="container mt-5 mb-5">
+                <h2 class="mb-4 text-start mt-5 bigfont">Our Statistics</h2>
+                <hr>
+                <div class="row justify-content-center">
+                    <% if(sitestyles.statsproducts) { %>
+                        <div class="col-auto spacingstats">
+                            <div class="piciconhome bg-theme">
+                                <i class="fa-solid fa-store"></i>
+                            </div>
+                            <div class="statdata">
+                                <h2><%= stats.products.toLocaleString() %></h2>
+                                <p>Products</p>
+                            </div>
+                        </div>
+                    <% }; %>
+                    <% if(sitestyles.statsclients) { %>
+                        <div class="col-auto spacingstats">
+                            <div class="piciconhome bg-theme">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="statdata">
+                                <h2><%= stats.clients.toLocaleString() %></h2>
+                                <p>Clients</p>
+                            </div>
+                        </div>
+                    <% }; %>
+                    <% if(sitestyles.statspurchases) { %>
+                        <div class="col-auto spacingstats">
+                            <div class="piciconhome bg-theme">
+                                <i class="fas fa-shopping-basket"></i>
+                            </div>
+                            <div class="statdata">
+                                <h2><%= stats.purchases.toLocaleString() %></h2>
+                                <p>Purchases</p>
+                            </div>
+                        </div>
+                    <% }; %>
+                    <% if(sitestyles.statsusers) { %>
+                        <div class="col-auto spacingstats">
+                            <div class="piciconhome bg-theme">
+                                <i class="fa-solid fa-address-book"></i>
+                            </div>
+                            <div class="statdata">
+                                <h2><%= stats.users.toLocaleString() %></h2>
+                                <p>Users</p>
+                            </div>
+                        </div>
+                    <% }; %>
+                    <% if(sitestyles.statsreviews) { %>
+                        <div class="col-auto spacingstats">
+                            <div class="piciconhome bg-theme">
+                                <i class="fa-solid fa-comments"></i>
+                            </div>
+                            <div class="statdata">
+                                <h2><%= stats.reviews.toLocaleString() %></h2>
+                                <p>Reviews</p>
+                            </div>
+                        </div>
+                    <% }; %>
+                    <% if(sitestyles.statspartners) { %>
+                        <div class="col-auto spacingstats">
+                            <div class="piciconhome bg-theme">
+                                <i class="fa-solid fa-handshake-simple"></i>
+                            </div>
+                            <div class="statdata">
+                                <h2><%= stats.partner.toLocaleString() %></h2>
+                                <p>Partners</p>
+                            </div>
+                        </div>
+                    <% }; %>
+                    <% if(sitestyles.statsstaff) { %>
+                        <div class="col-auto spacingstats">
+                            <div class="piciconhome bg-theme">
+                                <i class="fa-solid fa-people-group"></i>
+                            </div>
+                            <div class="statdata">
+                                <h2><%= stats.team.toLocaleString() %></h2>
+                                <p>Staff</p>
+                            </div>
+                        </div>
+                    <% }; %>
+                </div>
+            </div>
+        <% }; %>
+        <% if(featprod.length > 0) { %>
+            <div class="container">
+                <h2 class="mb-4 text-start mt-5 bigfont">Featured Products</h2>
+                <hr>
+                <div class="row justify-content-start">
+                    <% featprod.forEach(function(item) { %>
+                        <div class="col-lg-4 mb-5" style="border-radius: 0.2em;">
+                            <div class="bg-thatdark p-4 bd-theme">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-12 mb-2">
+                                        <img src="/images/product_<%= item.uniqueid %>.png" class="featprodimage" loading="lazy" alt="">
+                                    </div>
+                                    <div class="col-lg-7 text-start mb-4">
+                                        <a href="/shop/<%= item.link %>" class="text-start producttitlelist"><%= item.name %></a>
+                                    </div>
+                                    <div class="col-lg-5 mb-4">
+                                        <small>
+                                            <% if(item.reviewAverage < 1) { %>
+                                                <small class="bigfont text-secondary">Not yet rated...</small>
+                                            <% } else if(item.reviewAverage == 1) { %>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                            <% } else if(item.reviewAverage == 2) { %>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                            <% } else if(item.reviewAverage == 3) { %>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                            <% } else if(item.reviewAverage == 4) { %>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-regular fa-star"></i>
+                                            <% } else if(item.reviewAverage >= 5 ) { %>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                            <% }; %>
+                                        </small>
+                                    </div>
+                                    <div class="col-lg-6 mb-2">
+                                        <% if(item.pricecrossout != 'none') { %>
+                                            <p class="text-start text-theme productpricelist"><span class="text-secondary crossout"><%= config.paymentSettings.currencySymbol %><%= item.pricecrossout %></span> <%= config.paymentSettings.currencySymbol %><%= item.price %></p>
+                                        <% } else { %>
+                                            <p class="text-start text-theme productpricelist"><%= config.paymentSettings.currencySymbol %><%= item.price %></p>
+                                        <% }; %>
+                                    </div>
+                                    <div class="col-lg-6 mb-2">
+                                        <% if(!item.paused) { %>
+                                            <% if(Number(item.price) > 0) { %>
+                                                <a href="/backend/addtocart/<%= item.uniqueid %>" class="btn btn-theme btn-sm productbuttonlist"><i class="fa-solid fa-cart-shopping"></i> Add to Cart</a>
+                                            <% } else { %>
+                                                <a href="/download/product/<%= item.uniqueid %>" class="btn btn-theme btn-sm productbuttonlist"><i class="fa-solid fa-download"></i> Download</a>
+                                            <% }; %>
+                                        <% }; %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+            </div>
+        <% }; %>
+        <% if(usingcompanies.length > 0) { %>
+            <div class="container mt-5 mb-5">
+                <h2 class="mb-4 text-start mt-5 bigfont">Companies Using Our Services!</h2>
+                <hr>
+                <div class="row justify-content-center">
+                   <% usingcompanies.forEach(function(item) { %>
+                        <div class="col-auto mb-3 spacingstats">
+                            <a href="<%= item.link %>" target="_blank">
+                                <img src="/images/usingcompany_<%= item.uniqueid %>.png" loading="lazy" class="usingcompanylogo">
+                            </a>
+                        </div>
+                   <% }); %>
+                </div>
+            </div>
+        <% }; %>
+        <%- include('_footer') %>
+    </body>
+</html>
